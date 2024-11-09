@@ -6,22 +6,14 @@
 package org.neoteric.preference;
 
 import android.content.Context;
-import android.os.VibrationEffect;
-import android.os.Vibrator;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class Switch extends android.widget.Switch {
 
-    private static final VibrationEffect EFFECT_CLICK =
-            VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK);
-
-    private final Vibrator mVibrator;
-
     public Switch(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        mVibrator = context.getSystemService(Vibrator.class);
     }
 
     public Switch(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -39,6 +31,5 @@ public class Switch extends android.widget.Switch {
     @Override
     public void toggle() {
         super.toggle();
-        mVibrator.vibrate(EFFECT_CLICK);
     }
 }
