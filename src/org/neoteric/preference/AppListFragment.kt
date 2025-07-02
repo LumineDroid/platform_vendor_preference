@@ -91,7 +91,7 @@ abstract class AppListFragment : Fragment(R.layout.app_list_layout),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val activity = requireActivity()
         activity.setTitle(getTitle())
-        appBarLayout = activity.findViewById(com.android.settingslib.R.id.app_bar)
+        appBarLayout = activity.findViewById(com.android.settingslib.collapsingtoolbar.R.id.app_bar)
         progressBar = view.findViewById(R.id.loading_progress)
         adapter = AppListAdapter(getInitialCheckedList(), layoutInflater).apply {
             setOnAppSelectListener { onAppSelected(it) }
