@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class CustomSeekBarPreference extends Preference implements SeekBar.OnSee
     protected boolean mShowSign = false;
     protected String mUnits = "";
     protected boolean mContinuousUpdates = false;
+    protected boolean mShowButtons;
 
     protected int mMinValue = 0;
     protected int mMaxValue = 100;
@@ -73,6 +75,7 @@ public class CustomSeekBarPreference extends Preference implements SeekBar.OnSee
             if (units != null)
                 mUnits = " " + units;
             mContinuousUpdates = a.getBoolean(R.styleable.CustomSeekBarPreference_continuousUpdates, mContinuousUpdates);
+            mShowButtons = a.getBoolean(R.styleable.CustomSeekBarPreference_showButtons, true);
         } finally {
             a.recycle();
         }
@@ -147,6 +150,24 @@ public class CustomSeekBarPreference extends Preference implements SeekBar.OnSee
         mResetImageView = (ImageView) holder.findViewById(R.id.reset);
         mMinusImageView = (ImageView) holder.findViewById(R.id.minus);
         mPlusImageView = (ImageView) holder.findViewById(R.id.plus);
+
+        if (!mShowButtons) {
+            mMinusImageView.setVisibility(View.GONE);
+            mPlusImageView.setVisibility(View.GONE);
+
+            View seekbarContainer = holder.findViewById(R.id.seekbar);
+            if (seekbarContainer != null) {
+                ViewGroup.LayoutParams lp = seekbarContainer.getLayoutParams();
+                if (lp instanceof RelativeLayout.LayoutParams) {
+                    RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) lp;
+                    rlp.removeRule(RelativeLayout.START_OF);
+                    rlp.removeRule(RelativeLayout.END_OF);
+                    rlp.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE);
+                    rlp.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE);
+                    seekbarContainer.setLayoutParams(rlp);
+                }
+            }
+        }
 
         updateValueViews();
 
