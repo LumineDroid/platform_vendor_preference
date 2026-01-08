@@ -1,6 +1,6 @@
 android_library {
 
-    name: "NeotericPreferences",
+    name: "vendor-preference",
 
     optimize: {
         enabled: false,
